@@ -1,0 +1,1 @@
+package com.example.capstone.model.event_modeldata class ResponseSearchEvent(    val msg: String,    val status: Int,    val data: ArrayList<Greevents>)

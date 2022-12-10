@@ -1,0 +1,1 @@
+package com.example.capstone.model.info_modelimport android.os.Parcelableimport kotlinx.parcelize.Parcelize@Parcelizedata class InfoModel(    var title: String,    var artikel: String,    var image: Int) : Parcelable

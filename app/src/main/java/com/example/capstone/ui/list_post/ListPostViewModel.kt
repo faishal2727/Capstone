@@ -1,0 +1,1 @@
+package com.example.capstone.ui.list_postimport androidx.lifecycle.ViewModelimport com.example.capstone.data.AppRepositoryclass ListPostViewModel(val appRepository: AppRepository): ViewModel() {    fun getListMyPost() = appRepository.getListMyPost()}

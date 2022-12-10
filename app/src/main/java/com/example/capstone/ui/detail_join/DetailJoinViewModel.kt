@@ -1,0 +1,1 @@
+package com.example.capstone.ui.detail_joinimport androidx.lifecycle.ViewModelimport com.example.capstone.data.AppRepositoryclass DetailJoinViewModel(val appRepository: AppRepository): ViewModel() {    fun deleteJoin(id: Int) = appRepository.deleteJoin(id)}

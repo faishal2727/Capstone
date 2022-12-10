@@ -1,0 +1,1 @@
+package com.example.capstone.modeldata class ResponseDeleteJoin(    val msg: String,    val status: Int,    val data: Int)

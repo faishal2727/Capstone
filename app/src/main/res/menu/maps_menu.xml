@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/satellite"
+        android:title="satellite"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/normal"
+        android:title="normal"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/hybrid"
+        android:title="hybrid"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/terrain"
+        android:title="terrain"
+        app:showAsAction="never"/>
+</menu>

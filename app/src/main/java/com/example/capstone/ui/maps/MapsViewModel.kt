@@ -1,0 +1,1 @@
+package com.example.capstone.ui.mapsimport androidx.lifecycle.ViewModelimport com.example.capstone.data.AppRepositoryclass MapsViewModel (private val appRepository: AppRepository): ViewModel() {    fun getStoriesMap() = appRepository.getEventMap()}

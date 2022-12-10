@@ -1,0 +1,1 @@
+package com.example.capstone.ui.profileimport androidx.lifecycle.LiveDataimport androidx.lifecycle.MutableLiveDataimport androidx.lifecycle.ViewModelclass ProfileViewModel: ViewModel() {    private val _myText = MutableLiveData<String>().apply {        value = "My Name"    }    val myText : LiveData<String> = _myText}

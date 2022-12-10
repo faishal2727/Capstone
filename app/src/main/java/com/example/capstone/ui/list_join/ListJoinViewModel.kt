@@ -1,0 +1,1 @@
+package com.example.capstone.ui.list_joinimport androidx.lifecycle.ViewModelimport com.example.capstone.data.AppRepositoryclass ListJoinViewModel(private val appRepository: AppRepository): ViewModel() {    fun listJoinEvent()= appRepository.getListJoinEvent()}

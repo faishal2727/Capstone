@@ -1,0 +1,1 @@
+package com.example.capstone.ui.detail_eventimport androidx.lifecycle.ViewModelimport com.example.capstone.data.AppRepositoryclass CommentViewModel(private val appRepository: AppRepository):ViewModel() {    fun postComment(event_id: Int, comment: String) = appRepository.postComment(event_id,comment)}

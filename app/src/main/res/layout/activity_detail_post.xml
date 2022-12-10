@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_1"
+    tools:context=".ui.detail_post.DetailPostActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/Theme.Capstone">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_1"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@style/Theme.Capstone"
+                app:contentScrim="@color/color_1"
+                app:expandedTitleTextAppearance="@style/Theme.Capstone"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="Burger Combo">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Detail Event"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+                    <com.ortiz.touchview.TouchImageView
+                        android:id="@+id/ivEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/sample_event"
+                        android:transitionName="Transition_photo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_detail"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="30dp">
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:background="@color/black"
+                    android:elevation="2dp"
+                    android:visibility="visible"
+                    app:circularflow_radiusInDP="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dateEvent"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal :"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameEventDetail" />
+
+                <TextView
+                    android:id="@+id/tvDateEvent"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dateEvent"
+                    app:layout_constraintTop_toTopOf="@+id/dateEvent" />
+
+                <TextView
+                    android:id="@+id/lokasiEvent"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Lokasi :"
+                    app:layout_constraintEnd_toEndOf="@+id/dateEvent"
+                    app:layout_constraintStart_toStartOf="@+id/dateEvent"
+                    app:layout_constraintTop_toBottomOf="@+id/dateEvent" />
+
+                <TextView
+                    android:id="@+id/tvDetailLoc"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDateEvent"
+                    app:layout_constraintStart_toEndOf="@+id/lokasiEvent"
+                    app:layout_constraintTop_toTopOf="@+id/lokasiEvent" />
+
+                <TextView
+                    android:id="@+id/tvContactHp"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="No Telp :"
+                    app:layout_constraintEnd_toEndOf="@+id/lokasiEvent"
+                    app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
+                    app:layout_constraintTop_toBottomOf="@+id/lokasiEvent" />
+
+                <TextView
+                    android:id="@+id/tvDetailContactHp"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDetailLoc"
+                    app:layout_constraintStart_toEndOf="@+id/tvContactHp"
+                    app:layout_constraintTop_toTopOf="@+id/tvContactHp" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Email :"
+                    app:layout_constraintEnd_toEndOf="@+id/tvContactHp"
+                    app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvContactHp" />
+
+                <TextView
+                    android:id="@+id/tvDetailEmail"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDetailContactHp"
+                    app:layout_constraintStart_toEndOf="@+id/tvContactHp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvContactHp" />
+
+                <TextView
+                    android:id="@+id/tvAuthor"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Penyelenggara: "
+                    app:layout_constraintEnd_toEndOf="@+id/tvEmail"
+                    app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+
+                <TextView
+                    android:id="@+id/tvDetailAuthor"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tvDetailEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tvDetailEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+
+                <TextView
+                    android:id="@+id/tvNameEventDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Name Event"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+                <ProgressBar
+                    android:id="@+id/progressBarDetailPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/detailEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Detail Event"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tvContactHp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
+
+                <TextView
+                    android:id="@+id/tvDescEvent"
+                    style="@style/AppTheme.TextMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Ini Deskripsi Event"
+                    app:layout_constraintEnd_toEndOf="@+id/tvNameEventDetail"
+                    app:layout_constraintStart_toStartOf="@+id/detailEvent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailEvent" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescEvent"
+                    tools:layout_editor_absoluteX="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+
+                    <Button
+                        android:id="@+id/btnUpdateEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/button1"
+                        android:fontFamily="@font/poppins"
+                        android:text="Edit Event"
+                        android:layout_marginRight="4dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_3"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnDeleteEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="4dp"
+                        android:background="@drawable/button1"
+                        android:fontFamily="@font/poppins"
+                        android:text="Hapus Event"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_3"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <ProgressBar
+                    android:id="@+id/progressBarDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
