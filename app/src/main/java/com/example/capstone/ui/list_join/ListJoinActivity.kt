@@ -2,14 +2,13 @@ package com.example.capstone.ui.list_join
 
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.capstone.adapter.JoinEventAdapter
 import com.example.capstone.data.Result
-import com.example.capstone.databinding.ActivityDetailJoinBinding
 import com.example.capstone.databinding.ActivityListJoinBinding
 import com.example.capstone.factory.ViewModelFactory
 import com.example.capstone.model.DetailJoin
@@ -34,29 +33,30 @@ class ListJoinActivity : AppCompatActivity() {
         back()
     }
 
-    private fun setActionBar(){
+    private fun setActionBar() {
         supportActionBar?.hide()
     }
-    private fun back(){
+
+    private fun back() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
     }
 
-    private fun setViewModel(){
+    private fun setViewModel() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
-    private fun getList(){
-        listJoinViewModel.listJoinEvent().observe(this){
-            when(it){
+    private fun getList() {
+        listJoinViewModel.listJoinEvent().observe(this) {
+            when (it) {
                 is Result.Loading -> {
                     showLoading(true)
                 }
-                is Result.Error ->{
+                is Result.Error -> {
                     showLoading(false)
                 }
-                is Result.Success ->{
+                is Result.Success -> {
                     setRecyler(it.data.data)
                     showLoading(false)
                 }
@@ -64,13 +64,13 @@ class ListJoinActivity : AppCompatActivity() {
         }
     }
 
-    private fun setRecyler(listJoin: ArrayList<DetailJoin>){
+    private fun setRecyler(listJoin: ArrayList<DetailJoin>) {
         listJoinEventAdapter = JoinEventAdapter(listJoin)
         binding.rvListJoin.apply {
             adapter = listJoinEventAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        listJoinEventAdapter.setOnItemClickCallback(object : JoinEventAdapter.OnItemClickCallBack{
+        listJoinEventAdapter.setOnItemClickCallback(object : JoinEventAdapter.OnItemClickCallBack {
             override fun onItemClicked(data: DetailJoin) {
                 startActivity(Intent(this@ListJoinActivity, DetailJoinActivity::class.java).also {
                     it.putExtra(EXTRA_DATA, data)

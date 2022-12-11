@@ -1,13 +1,13 @@
 package com.example.capstone.ui.detail_event
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -17,15 +17,12 @@ import com.example.capstone.data.Result
 import com.example.capstone.databinding.ActivityDetailBinding
 import com.example.capstone.factory.ViewModelFactory
 import com.example.capstone.model.event_model.Comment
-import com.example.capstone.ui.custom_view.MyAlertDialog
 import com.example.capstone.ui.daftar_event.DaftarEventActivity
 import com.example.capstone.ui.daftar_event.DaftarEventActivity.Companion.EXTRA_ID_EVENT
 import com.example.capstone.ui.detail_comment.DetailCommentActivity
 import com.example.capstone.ui.detail_comment.DetailCommentActivity.Companion.EXTRA_COMMENT
 import com.example.capstone.ui.detail_comment.DetailCommentActivity.Companion.EXTRA_EVENT
 import com.example.capstone.ui.detail_comment.DetailCommentActivity.Companion.EXTRA_USER
-import com.example.capstone.ui.list_join.ListJoinActivity
-import com.example.capstone.ui.main.MainActivity
 import com.example.capstone.util.PhotoDialog
 import com.example.capstone.util.PhotoDialogSurat
 import www.sanju.motiontoast.MotionToast
@@ -58,7 +55,8 @@ class DetailEventActivity : AppCompatActivity() {
     private fun setActionBar() {
         supportActionBar?.hide()
     }
-    private fun back(){
+
+    private fun back() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
@@ -91,11 +89,13 @@ class DetailEventActivity : AppCompatActivity() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    Toast.makeText(this, "Gagal Menampilkan Detail Event", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Gagal Menampilkan Detail Event", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 is Result.Success -> {
-                    Toast.makeText(this, "Sukses Menampilkan Detail Event", Toast.LENGTH_SHORT).show()
-                    binding?.apply {
+                    Toast.makeText(this, "Sukses Menampilkan Detail Event", Toast.LENGTH_SHORT)
+                        .show()
+                    binding.apply {
                         btnJoinEvent(it.data.data.id)
                         tvNameEventDetail.text = it.data.data.name
                         tvDateEvent.text = it.data.data.date
@@ -109,11 +109,19 @@ class DetailEventActivity : AppCompatActivity() {
                             .into(ivEvent)
                         ivEvent.setOnClickListener {
                             seePhoto.showPhoto(intent.getStringExtra(EXTRA_POSTER)!!)
-                            Toast.makeText(this@DetailEventActivity, "${intent.getStringExtra(EXTRA_POSTER)}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@DetailEventActivity,
+                                "${intent.getStringExtra(EXTRA_POSTER)}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         btnLihatSk.setOnClickListener {
                             seeSurat.showPhoto(intent.getStringExtra(EXTRA_SURAT)!!)
-                            Toast.makeText(this@DetailEventActivity, "${intent.getStringExtra(EXTRA_SURAT)}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@DetailEventActivity,
+                                "${intent.getStringExtra(EXTRA_SURAT)}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         setRecyler(it.data.data.comments)
                     }
@@ -184,7 +192,7 @@ class DetailEventActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoading(false)
-                        Log.d("GAGAL KOMENT","${it.error}")
+                        Log.d("GAGAL KOMENT", "${it.error}")
                     }
                     is Result.Success -> {
                         Toast.makeText(this, "Berhasil Update Komentar", Toast.LENGTH_SHORT).show()

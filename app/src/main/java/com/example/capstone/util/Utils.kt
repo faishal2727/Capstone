@@ -64,6 +64,7 @@ fun reduceFileImage(file: File): File {
 
     return file
 }
+
 fun uriToPdf(selectedImg: Uri, context: Context): File {
     val contentResolver: ContentResolver = context.contentResolver
     val myFile = createCustomTempFile(context)
@@ -80,7 +81,7 @@ fun uriToPdf(selectedImg: Uri, context: Context): File {
     return myFile
 }
 
-fun convertPdf(uri: Uri, file: File): File{
+fun convertPdf(uri: Uri, file: File): File {
     var pdf = File(file, file.name)
     var uri = Uri.fromFile(pdf)
     var result = File(uri.toString())
@@ -106,10 +107,12 @@ fun reduceFileSurat(file: File): File {
 
     return file
 }
+
 fun createCustomTempSurat(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
 }
+
 fun uriToSurat(selectedImg: Uri, context: Context): File {
     val contentResolver: ContentResolver = context.contentResolver
     val myFile = createCustomTempSurat(context)
@@ -128,7 +131,7 @@ fun uriToSurat(selectedImg: Uri, context: Context): File {
 
 class PhotoDialog(val mActivity: Activity) {
 
-    fun showPhoto(photoURL: String){
+    fun showPhoto(photoURL: String) {
 
         val view = View.inflate(mActivity, R.layout.item_image, null)
         val builder = androidx.appcompat.app.AlertDialog.Builder(mActivity)
@@ -146,9 +149,10 @@ class PhotoDialog(val mActivity: Activity) {
             .into(ivPhoto!!)
     }
 }
+
 class PhotoDialogSurat(val mActivity: Activity) {
 
-    fun showPhoto(photoURL: String){
+    fun showPhoto(photoURL: String) {
 
         val view = View.inflate(mActivity, R.layout.item_image, null)
         val builder = androidx.appcompat.app.AlertDialog.Builder(mActivity)

@@ -1,19 +1,16 @@
 package com.example.capstone.ui.daftar_event
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.capstone.R
 import com.example.capstone.data.Result
 import com.example.capstone.databinding.ActivityDaftarEventBinding
 import com.example.capstone.factory.ViewModelFactory
-import com.example.capstone.ui.custom_view.MyAlertDialog
 import com.example.capstone.ui.list_join.ListJoinActivity
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -53,7 +50,7 @@ class DaftarEventActivity : AppCompatActivity() {
     private fun buttonJoin() {
         binding.btnJOinEvent.setOnClickListener {
 
-            val id_event = binding?.edtIdEvent?.text.toString().toInt()
+            val id_event = binding.edtIdEvent.text.toString().toInt()
             val nama = binding.edtNameUser.text.toString()
             val alamat = binding.edtAddressUser.text.toString()
             val phone = binding.edtContactUser.text.toString()

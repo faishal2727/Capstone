@@ -12,11 +12,12 @@ import kotlinx.coroutines.flow.map
 
 
 private val Context.onBoarding: DataStore<Preferences> by preferencesDataStore(name = dataStoreName)
-class PreferenceOnboarding ( private val context: Context) {
+
+class PreferenceOnboarding(private val context: Context) {
 
     private val boardingKey = booleanPreferencesKey("boardingKey")
 
-    suspend fun setToken(key : Boolean){
+    suspend fun setToken(key: Boolean) {
         context.onBoarding.edit {
             it[boardingKey] = key
         }
@@ -29,8 +30,7 @@ class PreferenceOnboarding ( private val context: Context) {
     }
 
 
-
-    companion object{
+    companion object {
         const val dataStoreName = "dataStoreName"
     }
 }

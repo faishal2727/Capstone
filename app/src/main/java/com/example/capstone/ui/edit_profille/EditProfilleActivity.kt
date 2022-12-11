@@ -1,40 +1,22 @@
 package com.example.capstone.ui.edit_profille
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.bumptech.glide.Glide
 import com.example.capstone.R
 import com.example.capstone.data.Result
 import com.example.capstone.databinding.ActivityEditProfilleBinding
 import com.example.capstone.factory.ViewModelFactory
-import com.example.capstone.ui.custom_view.MyAlertDialog
-import com.example.capstone.ui.detail_event.DetailEventActivity
-import com.example.capstone.ui.main.MainActivity
 import com.example.capstone.ui.profile.DetailProfileActivity
 import com.example.capstone.ui.profile.DetailProfileViewModel
-import com.example.capstone.ui.profile.ProfileFragment
-import com.example.capstone.util.reduceFileImage
-import com.example.capstone.util.uriToFile
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
-import java.io.File
 
 class EditProfilleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfilleBinding
@@ -58,7 +40,8 @@ class EditProfilleActivity : AppCompatActivity() {
     private fun setActionBar() {
         supportActionBar?.hide()
     }
-    private fun back(){
+
+    private fun back() {
         binding.imageView7.setOnClickListener {
             onBackPressed()
         }
@@ -121,7 +104,7 @@ class EditProfilleActivity : AppCompatActivity() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    Toast.makeText(this, "${it.error.toString()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "${it.error}", Toast.LENGTH_SHORT).show()
                 }
                 is Result.Success -> {
                     setToastSucces()

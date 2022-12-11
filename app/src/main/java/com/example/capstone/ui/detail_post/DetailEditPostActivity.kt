@@ -5,37 +5,25 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.example.capstone.R
 import com.example.capstone.data.Result
 import com.example.capstone.databinding.ActivityDetailEditPostBinding
-import com.example.capstone.databinding.ActivityEditEventBinding
 import com.example.capstone.factory.ViewModelFactory
 import com.example.capstone.ui.custom_view.MyAlertDialog
-import com.example.capstone.ui.detail_comment.DetailCommentActivity
-import com.example.capstone.ui.detail_event.DetailEventActivity
 import com.example.capstone.ui.detail_event.DetailEventViewModel
-import com.example.capstone.ui.list_post.ListPostActivity
 import com.example.capstone.ui.main.MainActivity
-import com.example.capstone.ui.profile.DetailProfileViewModel
-import com.example.capstone.ui.upload_event.UploadActivity
 import com.example.capstone.util.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -117,14 +105,14 @@ class DetailEditPostActivity : AppCompatActivity() {
             this, DatePickerDialog.OnDateSetListener { view, year, monthofYear, dayOfMonth ->
                 val returnDate = "${monthofYear + 1} $dayOfMonth $year"
                 val date = StringHelper.parseDate(
-                    "dd MM yyyy",
-                    "dd/MM/yy",
+                    "mm DD yyyy",
+                    "mm/DD/yy",
                     returnDate
                 )
                 binding.edtDateEventEdit.setText(
                     StringHelper.parseDate(
-                        "dd/MM/yy",
-                        "dd MM yyyy",
+                        "mm/DD/yy",
+                        "mm DD yyyy",
                         date
                     )
                 )
@@ -189,7 +177,7 @@ class DetailEditPostActivity : AppCompatActivity() {
     }
 
     private fun addLoc() {
-        binding?.addLoaction.setOnClickListener {
+        binding.addLoaction.setOnClickListener {
             getLocation()
         }
     }
@@ -238,7 +226,7 @@ class DetailEditPostActivity : AppCompatActivity() {
                     binding.edtContactEventEdit.setText(it.data.data.contact_person)
                     binding.edtEmailEventEdit.setText(it.data.data.email)
                     binding.edtLocationEventEdit.setText(it.data.data.location)
-                    binding.tvLocationEdit.setText("${it.data.data.latitude}, ${it.data.data.longitude} ")
+                    binding.tvLocationEdit.text = "${it.data.data.latitude}, ${it.data.data.longitude} "
                     Glide.with(this@DetailEditPostActivity)
                         .load(it.data.data.image_poster)
                         .into(binding.ivUpload)
@@ -253,13 +241,13 @@ class DetailEditPostActivity : AppCompatActivity() {
 
     private fun submitEvent() {
         binding.btnPostEvent.setOnClickListener {
-            val edtDesc = binding?.edtDescEventEdit?.text.toString()
-            val edtName = binding?.edtNameEventEdit?.text.toString()
-            val edtLoc = binding?.edtLocationEventEdit?.text.toString()
-            val edtPhone = binding?.edtContactEventEdit?.text.toString()
-            val edtAuthor = binding?.edtAuthorEventEdit?.text.toString()
-            val edtEmail = binding?.edtEmailEventEdit?.text.toString()
-            val edtDate = binding?.edtDateEventEdit?.text.toString()
+            val edtDesc = binding.edtDescEventEdit.text.toString()
+            val edtName = binding.edtNameEventEdit.text.toString()
+            val edtLoc = binding.edtLocationEventEdit.text.toString()
+            val edtPhone = binding.edtContactEventEdit.text.toString()
+            val edtAuthor = binding.edtAuthorEventEdit.text.toString()
+            val edtEmail = binding.edtEmailEventEdit.text.toString()
+            val edtDate = binding.edtDateEventEdit.text.toString()
 
             if (!TextUtils.isEmpty(edtDesc) && !TextUtils.isEmpty(edtName) && !TextUtils.isEmpty(
                     edtLoc
@@ -365,19 +353,19 @@ class DetailEditPostActivity : AppCompatActivity() {
             val surat = reduceFileSurat(suratFile as File)
             val id = intent.getIntExtra(DetailPostActivity.EXTRA_ID_POST_DETAIL, 0)
 
-            val name = binding?.edtNameEventEdit?.text.toString()
+            val name = binding.edtNameEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val date = binding?.edtDateEventEdit?.text.toString()
+            val date = binding.edtDateEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val location = binding?.edtLocationEventEdit?.text.toString()
+            val location = binding.edtLocationEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val dekripsi = binding?.edtDescEventEdit?.text.toString()
+            val dekripsi = binding.edtDescEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val author = binding?.edtAuthorEventEdit?.text.toString()
+            val author = binding.edtAuthorEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val email = binding?.edtEmailEventEdit?.text.toString()
+            val email = binding.edtEmailEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val contact = binding?.edtContactEventEdit?.text.toString()
+            val contact = binding.edtContactEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
 
             val currentImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -470,19 +458,19 @@ class DetailEditPostActivity : AppCompatActivity() {
         } else {
             val id = intent.getIntExtra(DetailPostActivity.EXTRA_ID_POST_DETAIL, 0)
 
-            val name = binding?.edtNameEventEdit?.text.toString()
+            val name = binding.edtNameEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val date = binding?.edtDateEventEdit?.text.toString()
+            val date = binding.edtDateEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val location = binding?.edtLocationEventEdit?.text.toString()
+            val location = binding.edtLocationEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val dekripsi = binding?.edtDescEventEdit?.text.toString()
+            val dekripsi = binding.edtDescEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val author = binding?.edtAuthorEventEdit?.text.toString()
+            val author = binding.edtAuthorEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val email = binding?.edtEmailEventEdit?.text.toString()
+            val email = binding.edtEmailEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
-            val contact = binding?.edtContactEventEdit?.text.toString()
+            val contact = binding.edtContactEventEdit.text.toString()
                 .toRequestBody("text/plain".toMediaTypeOrNull())
             detailEventViewModel.updateEventWIthoutImageLocation(
                 id,

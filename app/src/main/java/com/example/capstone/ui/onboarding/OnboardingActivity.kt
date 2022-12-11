@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -29,15 +30,18 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         supportActionBar?.hide()
         preferenceLogin = PreferenceLogin(this)
         loginResultModel = preferenceLogin.getUser()
         isLogin()
-        
+
         binding.button.setOnClickListener {
             startActivity(Intent(this, SplashActivity::class.java))
         }
     }
+
     private fun navigate(intent: Intent) {
         val splashTimer: Long = Constanta.ONBOARDING_SCREEN_TIMER
         Handler(Looper.getMainLooper()).postDelayed({

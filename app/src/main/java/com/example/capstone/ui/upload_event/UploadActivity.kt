@@ -1,22 +1,18 @@
 package com.example.capstone.ui.upload_event
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.location.Location
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -117,11 +113,11 @@ class UploadActivity : AppCompatActivity() {
             this, DatePickerDialog.OnDateSetListener { view, year, monthofYear, dayOfMonth ->
                 val returnDate = "${monthofYear + 1} $dayOfMonth $year"
                 val date = StringHelper.parseDate(
-                    "dd MM yyyy",
-                    "dd/MM/yy",
+                    "mm DD yyyy",
+                    "mm/DD/yy",
                     returnDate
                 )
-                binding.edtDateEvent.setText(StringHelper.parseDate("dd/MM/yy", "dd MM yyyy", date))
+                binding.edtDateEvent.setText(StringHelper.parseDate("mm/DD/yy", "mm DD yyyy", date))
                 binding.edtDateEvent.error = null
             }, year, moth, day
         )
@@ -165,7 +161,7 @@ class UploadActivity : AppCompatActivity() {
             if (it != null) {
                 val lat = it.latitude.toString()
                 val lot = it.longitude.toString()
-                binding?.tvLocation?.text = lat + "," + lot
+                binding.tvLocation.text = lat + "," + lot
                 Toast.makeText(this, "Berhasil Mendapatkan Lokasi", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Gagal Mendapatkan Lokasi", Toast.LENGTH_SHORT).show()
@@ -209,7 +205,7 @@ class UploadActivity : AppCompatActivity() {
 
             getFile = myFile
 
-            binding?.ivUpload?.setImageURI(selectedImg)
+            binding.ivUpload.setImageURI(selectedImg)
         }
     }
 
@@ -228,19 +224,19 @@ class UploadActivity : AppCompatActivity() {
             val selectedImg: Uri = result.data?.data as Uri
             val myFile = uriToSurat(selectedImg, this)
             suratFile = myFile
-            binding.tvUploadFile.setText("Berhasil upload !!")
+            binding.tvUploadFile.text = "Berhasil upload !!"
         }
     }
 
     private fun submitEvent() {
         binding.btnPostEvent.setOnClickListener {
-            val edtDesc = binding?.edtDescEvent?.text.toString()
-            val edtName = binding?.edtNameEvent?.text.toString()
-            val edtLoc = binding?.edtLocationEvent?.text.toString()
-            val edtPhone = binding?.edtContactEvent?.text.toString()
-            val edtAuthor = binding?.edtAuthorEvent?.text.toString()
-            val edtEmail = binding?.edtEmailEvent?.text.toString()
-            val edtDate = binding?.edtDateEvent?.text.toString()
+            val edtDesc = binding.edtDescEvent.text.toString()
+            val edtName = binding.edtNameEvent.text.toString()
+            val edtLoc = binding.edtLocationEvent.text.toString()
+            val edtPhone = binding.edtContactEvent.text.toString()
+            val edtAuthor = binding.edtAuthorEvent.text.toString()
+            val edtEmail = binding.edtEmailEvent.text.toString()
+            val edtDate = binding.edtDateEvent.text.toString()
 
             if (!TextUtils.isEmpty(edtDesc) && !TextUtils.isEmpty(edtName) && !TextUtils.isEmpty(
                     edtLoc
@@ -289,19 +285,19 @@ class UploadActivity : AppCompatActivity() {
                 val file = reduceFileImage(getFile as File)
                 val surat = reduceFileSurat(suratFile as File)
 
-                val name = binding?.edtNameEvent?.text.toString()
+                val name = binding.edtNameEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val date = binding?.edtDateEvent?.text.toString()
+                val date = binding.edtDateEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val location = binding?.edtLocationEvent?.text.toString()
+                val location = binding.edtLocationEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val dekripsi = binding?.edtDescEvent?.text.toString()
+                val dekripsi = binding.edtDescEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val author = binding?.edtAuthorEvent?.text.toString()
+                val author = binding.edtAuthorEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val email = binding?.edtEmailEvent?.text.toString()
+                val email = binding.edtEmailEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val contact = binding?.edtContactEvent?.text.toString()
+                val contact = binding.edtContactEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
 
                 val currentImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -330,7 +326,7 @@ class UploadActivity : AppCompatActivity() {
                     contact
                 ).observe(this) { result ->
                     if (result != null) {
-                        when(result) {
+                        when (result) {
                             is Result.Loading -> {
                                 showLoading(true)
                             }
@@ -350,19 +346,19 @@ class UploadActivity : AppCompatActivity() {
                 val file = reduceFileImage(getFile as File)
                 val surat = reduceFileSurat(suratFile as File)
 
-                val name = binding?.edtNameEvent?.text.toString()
+                val name = binding.edtNameEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val date = binding?.edtDateEvent?.text.toString()
+                val date = binding.edtDateEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val location = binding?.edtLocationEvent?.text.toString()
+                val location = binding.edtLocationEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val dekripsi = binding?.edtDescEvent?.text.toString()
+                val dekripsi = binding.edtDescEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val author = binding?.edtAuthorEvent?.text.toString()
+                val author = binding.edtAuthorEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val email = binding?.edtEmailEvent?.text.toString()
+                val email = binding.edtEmailEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
-                val contact = binding?.edtContactEvent?.text.toString()
+                val contact = binding.edtContactEvent.text.toString()
                     .toRequestBody("text/plain".toMediaTypeOrNull())
 
                 val currentImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -382,21 +378,21 @@ class UploadActivity : AppCompatActivity() {
                     pdfMultipart, location, dekripsi, author, email, contact
                 ).observe(this) { result ->
 
-                        when(result) {
-                            is Result.Loading -> {
-                                showLoading(true)
-                            }
-                            is Result.Error -> {
-                                showLoading(false)
-                                successAlert()
-                                setToastSucces()
-                            }
-                            is Result.Success -> {
-                                successAlert()
-                                setToastSucces()
-                            }
+                    when (result) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            successAlert()
+                            setToastSucces()
+                        }
+                        is Result.Success -> {
+                            successAlert()
+                            setToastSucces()
                         }
                     }
+                }
 
             }
         }

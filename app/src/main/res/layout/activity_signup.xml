@@ -141,7 +141,6 @@
                     android:id="@+id/edtEmailSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:hint="Email"
                     android:background="@drawable/bg_edit_text1"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>

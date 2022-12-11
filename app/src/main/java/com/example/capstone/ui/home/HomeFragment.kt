@@ -20,11 +20,11 @@ import com.example.capstone.model.event_model.Greevents
 import com.example.capstone.model.info_model.InfoModel
 import com.example.capstone.model.login_model.LoginResultModel
 import com.example.capstone.preference.PreferenceLogin
-import com.example.capstone.ui.upload_event.UploadActivity
 import com.example.capstone.ui.detail_event.DetailEventActivity
 import com.example.capstone.ui.detail_event.DetailEventActivity.Companion.EXTRA_ID
 import com.example.capstone.ui.info.InfoActivity
 import com.example.capstone.ui.info.InfoActivity.Companion.EXTRA_INFO
+import com.example.capstone.ui.upload_event.UploadActivity
 
 
 class HomeFragment : Fragment() {
@@ -96,8 +96,9 @@ class HomeFragment : Fragment() {
     private fun showRecylerView() {
         val infoAdapter = InfoAdapter(list)
         binding.rvNews.adapter = infoAdapter
-        binding.rvNews.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        infoAdapter.setOnItemClickCallback(object : InfoAdapter.OnItemClickCallback{
+        binding.rvNews.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        infoAdapter.setOnItemClickCallback(object : InfoAdapter.OnItemClickCallback {
             override fun onItemClicked(data: InfoModel) {
                 startActivity(Intent(activity, InfoActivity::class.java).also {
                     it.putExtra(EXTRA_INFO, data)
@@ -168,7 +169,8 @@ class HomeFragment : Fragment() {
                             }
                             is Result.Error -> {
                                 showLoading(false)
-                                Toast.makeText(activity, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, "Terjadi Kesalahan", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                             is Result.Success -> {
                                 showLoading(false)
@@ -182,6 +184,7 @@ class HomeFragment : Fragment() {
                 }
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 homeViewModel.searchEvent(newText.toString())
                 return true

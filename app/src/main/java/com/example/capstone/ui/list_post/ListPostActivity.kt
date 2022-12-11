@@ -15,7 +15,6 @@ import com.example.capstone.model.event_model.Greevents
 import com.example.capstone.ui.detail_post.DetailPostActivity
 import com.example.capstone.ui.detail_post.DetailPostActivity.Companion.EXTRA_ID_POST_DETAIL
 import com.example.capstone.ui.main.MainActivity
-import com.example.capstone.ui.profile.ProfileFragment
 
 class ListPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListPostBinding
@@ -35,10 +34,11 @@ class ListPostActivity : AppCompatActivity() {
 
     }
 
-    private fun setActionBar(){
+    private fun setActionBar() {
         supportActionBar?.hide()
     }
-    private fun back(){
+
+    private fun back() {
         binding.btnBack.setOnClickListener {
             startActivity(Intent(this@ListPostActivity, MainActivity::class.java).also {
                 finish()
@@ -57,13 +57,13 @@ class ListPostActivity : AppCompatActivity() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
-    private fun getListMyPost(){
-        listPostViewModel.getListMyPost().observe(this){
-            when(it){
-                is Result.Error ->{
+    private fun getListMyPost() {
+        listPostViewModel.getListMyPost().observe(this) {
+            when (it) {
+                is Result.Error -> {
                     Toast.makeText(this, "${it.error}", Toast.LENGTH_SHORT).show()
                 }
-                is Result.Success ->{
+                is Result.Success -> {
                     setRecyler(it.data.data)
                     Log.d("Horre", "${it.data.msg}")
                 }
@@ -72,16 +72,16 @@ class ListPostActivity : AppCompatActivity() {
     }
 
 
-    private fun setRecyler(listPost: ArrayList<Greevents>){
+    private fun setRecyler(listPost: ArrayList<Greevents>) {
         listEventAdapter = ListEventsAdapter(listPost)
         binding.rvListMyPost.apply {
             adapter = listEventAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        listEventAdapter.setOnItemClickCallback(object : ListEventsAdapter.OnItemClickCallback{
+        listEventAdapter.setOnItemClickCallback(object : ListEventsAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Greevents) {
                 startActivity(Intent(this@ListPostActivity, DetailPostActivity::class.java).also {
-                    it.putExtra(EXTRA_ID_POST_DETAIL,data.id)
+                    it.putExtra(EXTRA_ID_POST_DETAIL, data.id)
                 })
             }
         })

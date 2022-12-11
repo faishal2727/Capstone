@@ -1,7 +1,7 @@
 package com.example.capstone.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigationView.setupWithNavController(navController)
 
     }

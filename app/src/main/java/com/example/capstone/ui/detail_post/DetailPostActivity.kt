@@ -1,13 +1,13 @@
 package com.example.capstone.ui.detail_post
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.example.capstone.R
@@ -36,17 +36,19 @@ class DetailPostActivity : AppCompatActivity() {
         btnUpdate()
     }
 
-    private fun setActionBar(){
+    private fun setActionBar() {
         supportActionBar?.hide()
     }
-    private fun back(){
+
+    private fun back() {
         binding.btnBack.setOnClickListener {
             startActivity(Intent(this, ListPostActivity::class.java).also {
                 finish()
             })
         }
     }
-    private fun setViewModel(){
+
+    private fun setViewModel() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
@@ -69,7 +71,7 @@ class DetailPostActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     Toast.makeText(this, "${it.data.data.id}", Toast.LENGTH_SHORT).show()
-                    binding?.apply {
+                    binding.apply {
                         Log.d("KAMU", "${it.data.data.id}")
                         tvNameEventDetail.text = it.data.data.name
                         tvDateEvent.text = it.data.data.date
@@ -88,7 +90,7 @@ class DetailPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun btnDelete(){
+    private fun btnDelete() {
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 0)
         binding.btnDeleteEvent.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -108,18 +110,20 @@ class DetailPostActivity : AppCompatActivity() {
             alert.show()
         }
     }
-    private fun btnUpdate(){
+
+    private fun btnUpdate() {
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 0)
         binding.btnUpdateEvent.setOnClickListener {
             startActivity(Intent(this, DetailEditPostActivity::class.java).also {
-                it.putExtra(EXTRA_ID_POST_DETAIL,id)
+                it.putExtra(EXTRA_ID_POST_DETAIL, id)
             })
         }
     }
-    private fun deleteEvent(){
+
+    private fun deleteEvent() {
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 0)
-        detailEventViewModel.deleteMyPost(id).observe(this){
-            if (it != null){
+        detailEventViewModel.deleteMyPost(id).observe(this) {
+            if (it != null) {
                 when (it) {
                     is Result.Loading -> {
                         showLoading(true)
@@ -137,6 +141,7 @@ class DetailPostActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBarDetailPost.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -155,7 +160,7 @@ class DetailPostActivity : AppCompatActivity() {
         )
     }
 
-    companion object{
+    companion object {
         const val EXTRA_ID_POST_DETAIL = "extra_id_post"
     }
 }

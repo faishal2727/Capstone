@@ -3,11 +3,13 @@ package com.example.capstone.ui.maps
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.capstone.R
 import com.example.capstone.data.Result
@@ -56,7 +58,11 @@ class MapsFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -69,13 +75,14 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
-    private fun setViewModel(){
+    private fun setViewModel() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
+
     private fun getStoryWithLocation(googleMap: GoogleMap) {
         mapsViewModel.getStoriesMap().observe(this) { result ->
             if (result != null) {
-                when(result) {
+                when (result) {
                     is Result.Error -> {
                         Toast.makeText(activity, "Gagal Memuat Map", Toast.LENGTH_SHORT).show()
                     }
@@ -94,30 +101,35 @@ class MapsFragment : Fragment() {
                 MarkerOptions()
                     .position(latLng)
                     .title(event.name)
-                    .snippet(StringBuilder("created: ")
-                        .append(event.createdAt.subSequence(11, 16).toString())
-                        .toString()
+                    .snippet(
+                        StringBuilder("created: ")
+                            .append(event.createdAt.subSequence(11, 16).toString())
+                            .toString()
                     )
             )
             boundsBuilder.include(latLng)
         }
     }
-    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-        if (it){
-            getMyLocation()
+
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                getMyLocation()
+            }
         }
-    }
-    private fun getMyLocation(){
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED){
+
+    private fun getMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) ==
+            PackageManager.PERMISSION_GRANTED
+        ) {
             mMap.isMyLocationEnabled = true
         } else {
             requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
-
-
-
 
 
 }

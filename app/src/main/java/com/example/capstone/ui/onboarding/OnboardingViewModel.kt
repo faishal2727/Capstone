@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.capstone.preference.PreferenceOnboarding
 import kotlinx.coroutines.launch
 
-class OnboardingViewModel ( context: Context): ViewModel() {
+class OnboardingViewModel(context: Context) : ViewModel() {
 
 
     private val onBoardingPreferences = PreferenceOnboarding(context)
 
-    fun setBoardingKey(key : Boolean){
-        viewModelScope.launch{
+    fun setBoardingKey(key: Boolean) {
+        viewModelScope.launch {
             onBoardingPreferences.setToken(key)
         }
     }
