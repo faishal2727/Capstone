@@ -6,7 +6,7 @@
     <string name="error_validation">Lengkapi Form</string>
     <string name="error_message">Error ygy</string>
     <string name="text_desc">Silahkan Isi email dan password Anda, agar bisa masuk.</string>
-    <string name="sukses">Sukses Upload Story</string>
+    <string name="sukses">Sukses...</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur
             adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
@@ -99,13 +99,13 @@
     </string-array>
 
     <string name="title_menu_1">Kurikulum Standar Industri Global</string>
-    <string name="title_menu_2">Belajar Fleksibel Sesuai Jadwal Anda</string>
-    <string name="title_menu_3">Code Review dari Developer Expert</string>
-    <string name="title_menu_4">Alumni Terpercaya di Berbagai Perusahaan</string>
+    <string name="title_menu_2">Lindungi Bumi Kita</string>
+    <string name="title_menu_3">Cari Event Lingkungan Dengan Mudah</string>
+    <string name="title_menu_4">Ini adalah Greevent</string>
     <string name="desc_menu_1">Help Mother Earth with Your Own Hands.</string>
-    <string name="desc_menu_2">Collaborate With Everyone Around The World.</string>
-    <string name="desc_menu_3">Find Nearest Environmental Care Events.</string>
-    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
-    <string name="learn_now">Lets get started</string>
+    <string name="desc_menu_2">Dengan Mengikuti Event Lingkungan Bumi Kita Sehat</string>
+    <string name="desc_menu_3">Cari titik lokasi event yang tersedia di seluruh Indonesia</string>
+    <string name="desc_menu_4">Yuk Daftar Greevents</string>
+    <string name="learn_now">Go Event Go Green...</string>
 
 </resources>

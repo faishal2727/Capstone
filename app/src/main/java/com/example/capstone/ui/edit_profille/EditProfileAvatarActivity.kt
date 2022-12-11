@@ -14,16 +14,22 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
+import com.example.capstone.R
 import com.example.capstone.data.Result
 import com.example.capstone.databinding.ActivityEditProfileAvatarBinding
 import com.example.capstone.factory.ViewModelFactory
+import com.example.capstone.ui.custom_view.MyAlertDialog
+import com.example.capstone.ui.main.MainActivity
 import com.example.capstone.ui.profile.DetailProfileViewModel
 import com.example.capstone.util.reduceFileImage
 import com.example.capstone.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.io.File
 
 class EditProfileAvatarActivity : AppCompatActivity() {
@@ -115,7 +121,6 @@ class EditProfileAvatarActivity : AppCompatActivity() {
         }
     }
 
-
     private fun btnEdit() {
         binding.btnUpdateAvatar.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -125,8 +130,6 @@ class EditProfileAvatarActivity : AppCompatActivity() {
             }
             builder.setPositiveButton("Iya") { _, _ ->
                 updateProfileAvatar()
-                finish()
-                onResume()
             }
             val alert = builder.create()
             alert.show()
@@ -170,17 +173,46 @@ class EditProfileAvatarActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoading(false)
-                        Log.d("gagag", "${it.error}")
+                        Log.d("eyoy", "${it.error}")
                         Toast.makeText(this, "${it.error.toString()}", Toast.LENGTH_SHORT).show()
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        Toast.makeText(this, "${it.data.msg}", Toast.LENGTH_SHORT).show()
-                        Log.d("hapusC", "${it.data.msg}")
+                        successAlert()
+                        setToastSucces()
                     }
                 }
             }
         }
+    }
+
+    private fun setToastSucces() {
+        val titleToast = "Sukses !!!"
+        val messageToast = "Sukses Upload Event"
+        MotionToast.createColorToast(
+            this,
+            titleToast,
+            "$messageToast",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, R.font.poppins)
+        )
+    }
+
+    private fun successAlert() {
+        MyAlertDialog(
+            this,
+            R.string.sukses,
+            R.drawable.success_alert,
+            fun() {
+                val moveActivity = Intent(this, MainActivity::class.java)
+                moveActivity.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(moveActivity)
+                finish()
+            }
+        ).show()
     }
 
     private fun showLoading(isLoading: Boolean){

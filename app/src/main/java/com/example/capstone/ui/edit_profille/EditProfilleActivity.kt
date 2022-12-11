@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.example.capstone.R
 import com.example.capstone.data.Result
@@ -21,6 +22,7 @@ import com.example.capstone.databinding.ActivityEditProfilleBinding
 import com.example.capstone.factory.ViewModelFactory
 import com.example.capstone.ui.custom_view.MyAlertDialog
 import com.example.capstone.ui.detail_event.DetailEventActivity
+import com.example.capstone.ui.main.MainActivity
 import com.example.capstone.ui.profile.DetailProfileActivity
 import com.example.capstone.ui.profile.DetailProfileViewModel
 import com.example.capstone.ui.profile.ProfileFragment
@@ -30,6 +32,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.io.File
 
 class EditProfilleActivity : AppCompatActivity() {
@@ -92,6 +96,7 @@ class EditProfilleActivity : AppCompatActivity() {
             builder.setPositiveButton("Iya") { _, _ ->
                 updateProfile()
                 startActivity(Intent(this, DetailProfileActivity::class.java))
+                finish()
                 onResume()
             }
             val alert = builder.create()
@@ -119,11 +124,25 @@ class EditProfilleActivity : AppCompatActivity() {
                     Toast.makeText(this, "${it.error.toString()}", Toast.LENGTH_SHORT).show()
                 }
                 is Result.Success -> {
-                    Toast.makeText(this, "${it.data.msg}", Toast.LENGTH_SHORT).show()
+                    setToastSucces()
                     showLoading(false)
                 }
             }
         }
+    }
+
+    private fun setToastSucces() {
+        val titleToast = "Sukses !!!"
+        val messageToast = "Sukses Update Profile"
+        MotionToast.createColorToast(
+            this,
+            titleToast,
+            "$messageToast",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, R.font.poppins)
+        )
     }
 
     private fun showLoading(isLoading: Boolean) {
