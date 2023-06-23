@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
         getData()
     }
 
-    private fun btnSearch(){
+    private fun btnSearch() {
         binding.btnSearch.setOnClickListener {
             search()
         }
@@ -106,20 +106,6 @@ class HomeFragment : Fragment() {
             return listGithub
         }
 
-//    private fun showRecylerView() {
-//        val infoAdapter = InfoAdapter(list)
-//        binding.rvNews.adapter = infoAdapter
-//        binding.rvNews.layoutManager =
-//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        infoAdapter.setOnItemClickCallback(object : InfoAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: InfoModel) {
-//                startActivity(Intent(activity, InfoActivity::class.java).also {
-//                    it.putExtra(EXTRA_INFO, data)
-//                })
-//            }
-//        })
-//    }
-
     private fun getUsernameUser() {
         binding.tvUsername.text = loginResultModel.name
     }
@@ -135,13 +121,12 @@ class HomeFragment : Fragment() {
                     startShimmer()
                 }
                 is Result.Error -> {
-
                     startShimmer()
                     handler.postDelayed({
                         stopShimmer()
                         binding.failureLoad.visibility = View.VISIBLE
                         binding.failureLoad.playAnimation()
-                    }, 2500)
+                    }, 1000)
                 }
                 is Result.Success -> {
                     binding.failureLoad.visibility = View.GONE

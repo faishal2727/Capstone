@@ -16,6 +16,7 @@
         android:maxSdkVersion="18" />
 
     <application
+        android:forceDarkAllowed="false"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -35,7 +36,6 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
-
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
