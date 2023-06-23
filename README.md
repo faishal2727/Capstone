@@ -10,7 +10,14 @@ Greevent adalah sebuah aplikasi berbasis android yang bertujuan untuk mencari, m
 
 
 ## 📷 Screen Shots
-Login Screen | Home Screen | Detail Screen | Maps Screen
+Login Screen | SignUp Screen | Home Screen | Detail-Event Screen
 :----------:|:-------------:|:--------:|:--------:
-<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/login.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/home.png" width=300/> |<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/detail.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/maps.png" width=300/> |
+<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/login.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/signup.png" width=300/> |<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/home.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/detail.png" width=300/> |
+
+Post Screen | Join-Event Screen | Maps Screen | Detail-Join Screen
+:----------:|:-------------:|:--------:|:--------:
+<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/post.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/form-join.png" width=300/> |<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/maps.png" width=300/> | <img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/history.png" width=300/> |
+
+
+
 
