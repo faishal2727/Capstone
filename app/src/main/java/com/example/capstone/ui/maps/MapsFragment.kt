@@ -16,7 +16,8 @@ import com.example.capstone.data.Result
 import com.example.capstone.databinding.FragmentMapsBinding
 import com.example.capstone.factory.ViewModelFactory
 import com.example.capstone.model.event_model.Greevents
-import com.example.capstone.util.Constanta
+import com.example.capstone.util.Constanta.Companion.DICODING_LATITUDE
+import com.example.capstone.util.Constanta.Companion.DICODING_LONGITUDE
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -43,7 +44,7 @@ class MapsFragment : Fragment() {
 
         mMap = googleMap
 
-        val dummyLocation = LatLng(Constanta.DICODING_LATITUDE, Constanta.DICODING_LONGITUDE)
+        val dummyLocation = LatLng(DICODING_LATITUDE, DICODING_LONGITUDE)
         googleMap.addMarker(
             MarkerOptions()
                 .position(dummyLocation)
@@ -52,7 +53,6 @@ class MapsFragment : Fragment() {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dummyLocation, 15f))
 
         getMyLocation()
-
         setViewModel()
         getStoryWithLocation(googleMap)
 
@@ -85,6 +85,9 @@ class MapsFragment : Fragment() {
                 when (result) {
                     is Result.Error -> {
                         Toast.makeText(activity, "Gagal Memuat Map", Toast.LENGTH_SHORT).show()
+                    }
+                    is Result.Loading -> {
+
                     }
                     is Result.Success -> {
                         showMarker(result.data.data, googleMap)
@@ -130,6 +133,4 @@ class MapsFragment : Fragment() {
             requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
-
-
 }

@@ -34,7 +34,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".ui.main.MainActivity"
+
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -100,7 +101,7 @@
             android:exported="false" />
         <activity
             android:screenOrientation="portrait"
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
             android:screenOrientation="portrait"
@@ -110,7 +111,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBDdLvAVZXH9r-5RTV-XUdBPveRaw5DkCs" />
+            android:value="AIzaSyB3pPbWG-7InbD-dv361lJsAnv8c1a8bgI" />
     </application>
 
 </manifest>

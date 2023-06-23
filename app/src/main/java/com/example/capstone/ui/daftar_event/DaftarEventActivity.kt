@@ -30,7 +30,6 @@ class DaftarEventActivity : AppCompatActivity() {
         setViewModel()
         buttonJoin()
         back()
-
     }
 
     private fun setViewModel() {
@@ -45,6 +44,16 @@ class DaftarEventActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun showLoading(){
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading(){
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
     }
 
     private fun buttonJoin() {
@@ -85,23 +94,20 @@ class DaftarEventActivity : AppCompatActivity() {
             if (it != null) {
                 when (it) {
                     is Result.Loading -> {
-                        showLoading(true)
+                        showLoading()
                     }
                     is Result.Success -> {
+                        stopLoading()
                         setToastSuccessJoin()
                     }
                     is Result.Error -> {
-                        showLoading(false)
+                        showLoading()
                         setToastFormNotFully()
                     }
                 }
             }
 
         }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarDaftar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setToastSuccessJoin() {

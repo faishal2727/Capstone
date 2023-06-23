@@ -3,6 +3,7 @@ package com.example.capstone.ui.list_join
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ class ListJoinActivity : AppCompatActivity() {
     private lateinit var listJoinEventAdapter: JoinEventAdapter
     private lateinit var viewModelFactory: ViewModelFactory
     private val listJoinViewModel: ListJoinViewModel by viewModels { viewModelFactory }
+    private var handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,7 @@ class ListJoinActivity : AppCompatActivity() {
         setViewModel()
         getList()
         back()
+        binding.swipeRefreshLayout.setOnRefreshListener { getList() }
     }
 
     private fun setActionBar() {
@@ -40,6 +43,7 @@ class ListJoinActivity : AppCompatActivity() {
     private fun back() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
+            finish()
         }
     }
 
@@ -47,18 +51,35 @@ class ListJoinActivity : AppCompatActivity() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
+    private fun startShimmer() {
+        binding.loadingEvent.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        binding.loadingEvent.stopShimmer()
+        binding.loadingEvent.visibility = View.GONE
+    }
+
     private fun getList() {
         listJoinViewModel.listJoinEvent().observe(this) {
             when (it) {
                 is Result.Loading -> {
-                    showLoading(true)
+                    startShimmer()
                 }
                 is Result.Error -> {
-                    showLoading(false)
+                    startShimmer()
+                    handler.postDelayed({
+                        stopShimmer()
+                        binding.failureLoad.visibility = View.VISIBLE
+                        binding.failureLoad.playAnimation()
+                    }, 2500)
                 }
                 is Result.Success -> {
                     setRecyler(it.data.data)
-                    showLoading(false)
+                    stopShimmer()
+                    binding.failureLoad.visibility = View.GONE
+                    binding.failureLoad.cancelAnimation()
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         }
@@ -78,10 +99,4 @@ class ListJoinActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarListJoin.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-
 }

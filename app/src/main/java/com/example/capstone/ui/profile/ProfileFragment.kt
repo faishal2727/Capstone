@@ -77,7 +77,18 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setViewModel() {
+
+    private fun showLoading(){
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading(){
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
+    }
+
+    private fun setViewModel(){
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
@@ -110,18 +121,19 @@ class ProfileFragment : Fragment() {
             binding.apply {
                 when (it) {
                     is Result.Loading -> {
-                        showLoading(true)
+                        showLoading()
                     }
                     is Result.Error -> {
                         showLoading(false)
                     }
+
                     is Result.Success -> {
                         Glide.with(binding.ivProfile)
                             .load(it.data.data.image_profile)
                             .circleCrop()
                             .into(ivProfile)
                         tvUsername.text = it.data.data.name
-                        showLoading(false)
+                        stopLoading()
                     }
                 }
             }
@@ -143,5 +155,4 @@ class ProfileFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBarProfile.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 }

@@ -9,24 +9,44 @@
 
     <Button
         android:id="@+id/btnJoinEvent"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="64dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button1"
         android:fontFamily="@font/poppins"
+        android:paddingHorizontal="10dp"
         android:text="Daftar Event"
         android:textAllCaps="false"
         android:textColor="@color/color_3"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnLihatSk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button1"
+        android:backgroundTint="@color/color_1"
+        android:fontFamily="@font/poppins"
+        android:paddingHorizontal="10dp"
+        android:text="Lihat Surat Keterangan"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnJoinEvent" />
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,58 +61,79 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_1"
+                android:background="@color/color_3"
                 android:fitsSystemWindows="true"
+                android:tooltipText="@string/app_name"
                 app:collapsedTitleTextAppearance="@style/Theme.Capstone"
+                app:collapsedTitleTextColor="@android:color/white"
                 app:contentScrim="@color/color_1"
-                app:expandedTitleTextAppearance="@style/Theme.Capstone"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                app:title="Burger Combo">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="true">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <FrameLayout
+                    android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/btnBack"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
-                        android:src="@drawable/ic_back"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="Detail Event"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:layout_marginTop="8dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.ortiz.touchview.TouchImageView
                         android:id="@+id/ivEvent"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="8dp"
-                        android:padding="10dp"
-                        android:src="@drawable/sample_event"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_galeri"
                         android:transitionName="Transition_photo"
+                        app:layout_collapseMode="parallax"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/title_bg" />
+
+                </FrameLayout>
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_back" />
+
+                    <TextView
+                        android:id="@+id/toolbarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="center"
+                        android:text="Detail Event"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.Toolbar>
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -102,20 +143,21 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="-15dp"
             android:background="@drawable/bg_detail"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="30dp">
+                android:layout_height="match_parent">
 
 
                 <View
                     android:id="@+id/view1"
                     android:layout_width="50dp"
-                    android:layout_height="4dp"
-                    android:background="@color/black"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey"
                     android:elevation="2dp"
                     android:visibility="visible"
                     app:circularflow_radiusInDP="20dp"
@@ -123,13 +165,36 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loading_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/shimmer_detail" />
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+
                 <TextView
                     android:id="@+id/dateEvent"
                     style="@style/AppTheme.TextMain"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="Tanggal :"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/tvNameEventDetail"
                     app:layout_constraintTop_toBottomOf="@+id/tvNameEventDetail" />
 
                 <TextView
@@ -138,19 +203,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/dateEvent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/dateEvent"
-                    app:layout_constraintTop_toTopOf="@+id/dateEvent" />
+                    app:layout_constraintStart_toEndOf="@+id/dateEvent" />
 
                 <TextView
                     android:id="@+id/lokasiEvent"
                     style="@style/AppTheme.TextMain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:text="Lokasi :"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/dateEvent"
-                    app:layout_constraintStart_toStartOf="@+id/dateEvent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dateEvent" />
 
                 <TextView
@@ -170,6 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="No Telp :"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/lokasiEvent"
                     app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
                     app:layout_constraintTop_toBottomOf="@+id/lokasiEvent" />
@@ -191,6 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Email :"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/tvContactHp"
                     app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
                     app:layout_constraintTop_toBottomOf="@+id/tvContactHp" />
@@ -203,7 +273,7 @@
                     android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="@+id/tvDetailContactHp"
                     app:layout_constraintStart_toEndOf="@+id/tvContactHp"
-                    app:layout_constraintTop_toBottomOf="@+id/tvContactHp" />
+                    app:layout_constraintTop_toTopOf="@+id/tvEmail" />
 
                 <TextView
                     android:id="@+id/tvAuthor"
@@ -212,6 +282,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Penyelenggara: "
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/tvEmail"
                     app:layout_constraintStart_toStartOf="@+id/lokasiEvent"
                     app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
@@ -223,18 +294,20 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/tvDetailEmail"
                     app:layout_constraintStart_toStartOf="@+id/tvDetailEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+                    app:layout_constraintTop_toTopOf="@+id/tvAuthor" />
 
                 <TextView
                     android:id="@+id/tvNameEventDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/poppins"
                     android:text="Name Event"
                     android:textColor="@color/black"
-                    android:textSize="28sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view1" />
 
@@ -242,36 +315,25 @@
                     android:id="@+id/detailEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/poppins_bold"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins"
                     android:text="Detail Event"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/btnLihatSk"
-                    app:layout_constraintTop_toBottomOf="@+id/btnLihatSk" />
-
-                <Button
-                    android:id="@+id/btnLihatSk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_1"
-                    android:fontFamily="@font/poppins"
-                    android:text="Lihat Surat Keterangan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toTopOf="@+id/detailEvent"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@+id/tvAuthor"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvDetailAuthor" />
+
+
                 <TextView
                     android:id="@+id/tvDescEvent"
                     style="@style/AppTheme.TextMain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Ini Deskripsi Event"
-                    app:layout_constraintEnd_toEndOf="@+id/tvNameEventDetail"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/detailEvent"
                     app:layout_constraintTop_toBottomOf="@+id/detailEvent" />
 
@@ -279,8 +341,10 @@
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/black"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:elevation="2dp"
                     android:visibility="visible"
                     app:circularflow_radiusInDP="20dp"
@@ -293,9 +357,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:hint="Komentar Di Sini"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -310,6 +374,7 @@
                         android:gravity="top|start"
                         android:inputType="textMultiLine"
                         android:lines="4"
+                        app:hintEnabled="false"
                         android:maxLines="20" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -317,7 +382,9 @@
                     android:id="@+id/komentar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins"
                     android:text="Lihat Komentar"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -329,11 +396,54 @@
                     android:id="@+id/rvComment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/komentar"
                     tools:listitem="@layout/item_comment" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loading_coment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/komentar">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+
+                            <include layout="@layout/list_event_shimmer" />
+                        </LinearLayout>
+                    </ScrollView>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -358,19 +468,20 @@
                     android:id="@+id/btnComent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/color_1"
                     android:fontFamily="@font/poppins"
-                    android:text="Komentar"
+                    android:paddingHorizontal="20dp"
+                    android:text="Post Komentar"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@+id/textCommentEvent"
                     app:layout_constraintTop_toBottomOf="@+id/textCommentEvent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,9 @@
 package com.example.capstone.ui.home
 
 import android.content.Intent
+import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,16 +23,13 @@ import com.example.capstone.model.info_model.InfoModel
 import com.example.capstone.model.login_model.LoginResultModel
 import com.example.capstone.preference.PreferenceLogin
 import com.example.capstone.ui.detail_event.DetailEventActivity
-import com.example.capstone.ui.detail_event.DetailEventActivity.Companion.EXTRA_ID
-import com.example.capstone.ui.info.InfoActivity
-import com.example.capstone.ui.info.InfoActivity.Companion.EXTRA_INFO
-import com.example.capstone.ui.upload_event.UploadActivity
 
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val list = ArrayList<InfoModel>()
+    private val handler = Handler()
     private lateinit var listEventsAdapter: ListEventsAdapter
     private lateinit var preferenceLogin: PreferenceLogin
     private lateinit var loginResultModel: LoginResultModel
@@ -50,11 +49,10 @@ class HomeFragment : Fragment() {
 
         setViewModel()
         getUsernameUser()
-        buttonAddAction()
-        binding.rvNews.setHasFixedSize(true)
         list.addAll(listUser)
-        showRecylerView()
+        binding.swipeRefreshLayout.setOnRefreshListener { getData() }
         search()
+        btnSearch()
         return root
     }
 
@@ -66,6 +64,21 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getData()
+    }
+
+    private fun btnSearch(){
+        binding.btnSearch.setOnClickListener {
+            search()
+        }
+    }
+
+    private fun startShimmer() {
+        binding.loadingEvent.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        binding.loadingEvent.stopShimmer()
+        binding.loadingEvent.visibility = View.GONE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,28 +106,22 @@ class HomeFragment : Fragment() {
             return listGithub
         }
 
-    private fun showRecylerView() {
-        val infoAdapter = InfoAdapter(list)
-        binding.rvNews.adapter = infoAdapter
-        binding.rvNews.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        infoAdapter.setOnItemClickCallback(object : InfoAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: InfoModel) {
-                startActivity(Intent(activity, InfoActivity::class.java).also {
-                    it.putExtra(EXTRA_INFO, data)
-                })
-            }
-        })
-    }
+//    private fun showRecylerView() {
+//        val infoAdapter = InfoAdapter(list)
+//        binding.rvNews.adapter = infoAdapter
+//        binding.rvNews.layoutManager =
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//        infoAdapter.setOnItemClickCallback(object : InfoAdapter.OnItemClickCallback {
+//            override fun onItemClicked(data: InfoModel) {
+//                startActivity(Intent(activity, InfoActivity::class.java).also {
+//                    it.putExtra(EXTRA_INFO, data)
+//                })
+//            }
+//        })
+//    }
 
     private fun getUsernameUser() {
         binding.tvUsername.text = loginResultModel.name
-    }
-
-    private fun buttonAddAction() {
-        binding.btnAdd.setOnClickListener {
-            startActivity(Intent(activity, UploadActivity::class.java))
-        }
     }
 
     private fun setViewModel() {
@@ -125,16 +132,23 @@ class HomeFragment : Fragment() {
         homeViewModel.getAllEvents().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
-                    showLoading(true)
+                    startShimmer()
                 }
                 is Result.Error -> {
-                    showLoading(false)
-                    Toast.makeText(activity, "Gagal Memuat Data", Toast.LENGTH_SHORT).show()
+
+                    startShimmer()
+                    handler.postDelayed({
+                        stopShimmer()
+                        binding.failureLoad.visibility = View.VISIBLE
+                        binding.failureLoad.playAnimation()
+                    }, 2500)
                 }
                 is Result.Success -> {
+                    binding.failureLoad.visibility = View.GONE
+                    binding.failureLoad.cancelAnimation()
+                    binding.swipeRefreshLayout.isRefreshing = false
                     setRecylerView(it.data.data)
-                    Toast.makeText(activity, "Sukses Memuat Data", Toast.LENGTH_SHORT).show()
-                    showLoading(false)
+                    stopShimmer()
                 }
             }
         }
@@ -160,27 +174,38 @@ class HomeFragment : Fragment() {
     private fun search() {
         binding.searcView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                showLoading(true)
+                startShimmer()
                 if (query != null) {
                     homeViewModel.searchEvent(query).observe(viewLifecycleOwner) {
                         when (it) {
                             is Result.Loading -> {
-                                showLoading(true)
+                                startShimmer()
                             }
                             is Result.Error -> {
-                                showLoading(false)
                                 Toast.makeText(activity, "Terjadi Kesalahan", Toast.LENGTH_SHORT)
                                     .show()
+                                binding.failureLoad.visibility = View.VISIBLE
+                                binding.failureLoad.playAnimation()
+//                                val includeView = binding.falilureLoads.root
+//                                includeView.visibility = View.VISIBLE
+//                               showLoading()
+                                stopShimmer()
                             }
                             is Result.Success -> {
-                                showLoading(false)
+                                stopShimmer()
+                                binding.failureLoad.visibility = View.GONE
+                                binding.failureLoad.playAnimation()
+//                                stopLoading()
                                 Toast.makeText(activity, "Sukses Mencari Event", Toast.LENGTH_SHORT)
                                     .show()
                                 setRecylerView(it.data.data)
+                                if (it.data.data.isEmpty()) {
+                                    binding.failureLoad.visibility = View.VISIBLE
+                                }
                             }
                         }
                     }
-                    showLoading(false)
+                    stopShimmer()
                 }
                 return true
             }
@@ -193,9 +218,9 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarHome.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
+//    private fun showLoading(isLoading: Boolean) {
+//        binding.progressBarHome.visibility = if (isLoading) View.VISIBLE else View.GONE
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

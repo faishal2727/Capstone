@@ -39,7 +39,19 @@ class SignUpActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun buttonRegister() {
+    private fun showLoading(){
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading(){
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
+    }
+
+
+    private fun buttonRegister(){
+
         binding.btnSignUp.setOnClickListener {
             val name = binding.edtUsernameSignUp.text.toString().trim()
             val email = binding.edtEmailSignUp.text.toString().trim()
@@ -59,19 +71,22 @@ class SignUpActivity : AppCompatActivity() {
         binding.edtPasswordSignUp.text?.clear()
     }
 
-    private fun processSignUp(name: String, email: String, password: String) {
-        signUpViewModel.register(name, email, password).observe(this) {
-            if (it != null) {
-                when (it) {
-                    is Result.Loading -> {
-                        showLoading(true)
+
+    private fun processSignUp(name: String, email: String, password:String){
+        signUpViewModel.register(name, email, password).observe(this){
+            if (it != null){
+                when(it){
+                    is Result.Loading ->{
+                        showLoading()
                     }
-                    is Result.Error -> {
-                        showLoading(false)
+                    is Result.Error ->{
+                        stopLoading()
+
                         Toast.makeText(this, "Ada yang tidak beres", Toast.LENGTH_SHORT).show()
                     }
                     is Result.Success -> {
                         formSignUp()
+                        stopLoading()
                         startActivity(Intent(this, LoginActivity::class.java))
                         Toast.makeText(this, "Berhasil Daftar Akun", Toast.LENGTH_SHORT).show()
                     }
@@ -79,8 +94,8 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarSigUp.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
+//
+//    private fun showLoading(isLoading: Boolean) {
+//        binding.progressBarSigUp.visibility = if (isLoading) View.VISIBLE else View.GONE
+//    }
 }

@@ -42,7 +42,17 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setViewModel() {
+    private fun showLoading(){
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading(){
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
+    }
+
+    private fun setViewModel(){
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
@@ -59,19 +69,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun processLogin(email: String, password: String) {
-        loginViewModel.authLogin(email, password).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
+    private fun processLogin(email: String, password:String){
+        loginViewModel.authLogin(email, password).observe(this){ result->
+            if (result != null){
+                when(result){
+                    is Result.Loading ->{
+                        showLoading()
                     }
                     is Result.Error -> {
-                        showLoading(false)
+                        stopLoading()
                         Toast.makeText(this, "${result.error}", Toast.LENGTH_SHORT).show()
                         errorLogin()
                     }
                     is Result.Success -> {
+                        stopLoading()
                         succesLogin(result.data)
                         Toast.makeText(
                             this,
@@ -105,9 +116,5 @@ class LoginActivity : AppCompatActivity() {
             name = resultLogin?.name, id = resultLogin?.id.toString(), token = resultLogin?.token
         )
         preferenceLogin.setAuthLogin(loginResultModel)
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarLogin.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

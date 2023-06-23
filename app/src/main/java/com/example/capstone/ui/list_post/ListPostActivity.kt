@@ -2,7 +2,9 @@ package com.example.capstone.ui.list_post
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +23,7 @@ class ListPostActivity : AppCompatActivity() {
     private lateinit var listEventAdapter: ListEventsAdapter
     private lateinit var viewModelFactory: ViewModelFactory
     private val listPostViewModel: ListPostViewModel by viewModels { viewModelFactory }
-
+    private val handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListPostBinding.inflate(layoutInflater)
@@ -31,6 +33,7 @@ class ListPostActivity : AppCompatActivity() {
         setViewModel()
         getListMyPost()
         back()
+        binding.swipeRefreshLayout.setOnRefreshListener { getListMyPost() }
 
     }
 
@@ -38,33 +41,47 @@ class ListPostActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun back() {
+    private fun back(){
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this@ListPostActivity, MainActivity::class.java).also {
-                finish()
-            })
+            onBackPressed()
+            finish()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        startActivity(Intent(this@ListPostActivity, MainActivity::class.java).also {
-            finish()
-        })
+    private fun startShimmer() {
+        binding.loadingEvent.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        binding.loadingEvent.stopShimmer()
+        binding.loadingEvent.visibility = View.GONE
     }
 
     private fun setViewModel() {
         viewModelFactory = ViewModelFactory.getInstnce(binding.root.context)
     }
 
-    private fun getListMyPost() {
-        listPostViewModel.getListMyPost().observe(this) {
-            when (it) {
-                is Result.Error -> {
-                    Toast.makeText(this, "${it.error}", Toast.LENGTH_SHORT).show()
+    private fun getListMyPost(){
+        listPostViewModel.getListMyPost().observe(this){
+            when(it){
+                is Result.Loading -> {
+                    startShimmer()
                 }
-                is Result.Success -> {
+                is Result.Error ->{
+                    startShimmer()
+                    handler.postDelayed({
+                        stopShimmer()
+                        binding.failureLoad.visibility = View.VISIBLE
+                        binding.failureLoad.playAnimation()
+                    },2500)
+                        Toast.makeText(this, "${it.error}", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Success ->{
+                    stopShimmer()
                     setRecyler(it.data.data)
+                    binding.failureLoad.visibility = View.GONE
+                    binding.failureLoad.cancelAnimation()
+                    binding.swipeRefreshLayout.isRefreshing = false
                     Log.d("Horre", "${it.data.msg}")
                 }
             }

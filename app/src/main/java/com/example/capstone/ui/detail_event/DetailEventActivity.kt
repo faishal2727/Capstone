@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,8 @@ import com.example.capstone.util.PhotoDialog
 import com.example.capstone.util.PhotoDialogSurat
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -80,22 +83,51 @@ class DetailEventActivity : AppCompatActivity() {
         getDetailEvent()
     }
 
+
+    private fun startShimmer() {
+        binding.loadingDetail.startShimmer()
+        binding.loadingDetail.visibility = View.VISIBLE
+    }
+
+    private fun stopShimmer() {
+        binding.loadingDetail.stopShimmer()
+        binding.loadingDetail.visibility = View.GONE
+    }
+
+    private fun startShimmerCOmment() {
+        binding.loadingComent.startShimmer()
+        binding.loadingComent.visibility = View.VISIBLE
+    }
+
+    private fun stopShimmerComment() {
+        binding.loadingComent.stopShimmer()
+        binding.loadingComent.visibility = View.GONE
+    }
+
     private fun getDetailEvent() {
         val id = intent.getIntExtra(EXTRA_ID, 1)
         detailEventViewModel.getEventById(id).observe(this) {
             when (it) {
                 is Result.Loading -> {
-                    showLoading(true)
+                    startShimmer()
+                    startShimmerCOmment()
                 }
                 is Result.Error -> {
-                    showLoading(false)
+                    startShimmer()
+                    startShimmerCOmment()
                     Toast.makeText(this, "Gagal Menampilkan Detail Event", Toast.LENGTH_SHORT)
                         .show()
                 }
                 is Result.Success -> {
-                    Toast.makeText(this, "Sukses Menampilkan Detail Event", Toast.LENGTH_SHORT)
-                        .show()
-                    binding.apply {
+//                    Toast.makeText(this, "Sukses Menampilkan Detail Event", Toast.LENGTH_SHORT).show()
+                    binding?.apply {
+                        tvNameEventDetail.visibility = View.VISIBLE
+                        detailEvent.visibility = View.VISIBLE
+                        dateEvent.visibility = View.VISIBLE
+                        lokasiEvent.visibility = View.VISIBLE
+                        tvContactHp.visibility = View.VISIBLE
+                        tvAuthor.visibility = View.VISIBLE
+                        tvEmail.visibility = View.VISIBLE
                         btnJoinEvent(it.data.data.id)
                         tvNameEventDetail.text = it.data.data.name
                         tvDateEvent.text = it.data.data.date
@@ -124,8 +156,9 @@ class DetailEventActivity : AppCompatActivity() {
                             ).show()
                         }
                         setRecyler(it.data.data.comments)
+                        stopShimmerComment()
                     }
-                    showLoading(false)
+                    stopShimmer()
                 }
             }
         }

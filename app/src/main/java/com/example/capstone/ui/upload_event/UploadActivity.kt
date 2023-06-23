@@ -35,6 +35,12 @@ import java.io.File
 import java.util.*
 
 class UploadActivity : AppCompatActivity() {
+
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
+    }
+
     private lateinit var binding: ActivityUploadBinding
     private var getFile: File? = null
     private var suratFile: File? = null
@@ -101,6 +107,16 @@ class UploadActivity : AppCompatActivity() {
         binding.edtDateEvent.setOnClickListener {
             setCalender()
         }
+    }
+
+    private fun showLoading() {
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading() {
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
     }
 
     private fun setCalender() {
@@ -328,14 +344,15 @@ class UploadActivity : AppCompatActivity() {
                     if (result != null) {
                         when (result) {
                             is Result.Loading -> {
-                                showLoading(true)
+                                showLoading()
                             }
                             is Result.Error -> {
-                                showLoading(false)
+                                showLoading()
                                 successAlert()
                                 setToastSucces()
                             }
                             is Result.Success -> {
+                                stopLoading()
                                 successAlert()
                                 setToastSucces()
                             }
@@ -380,21 +397,22 @@ class UploadActivity : AppCompatActivity() {
 
                     when (result) {
                         is Result.Loading -> {
-                            showLoading(true)
+                            showLoading()
                         }
                         is Result.Error -> {
-                            showLoading(false)
+                            showLoading()
                             successAlert()
                             setToastSucces()
                         }
                         is Result.Success -> {
+                            stopLoading()
                             successAlert()
                             setToastSucces()
                         }
                     }
                 }
-
             }
+
         }
     }
 
@@ -413,10 +431,6 @@ class UploadActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarUpload.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
     private fun setToastSucces() {
         val titleToast = "Sukses !!!"
         val messageToast = "Sukses Upload Event"
@@ -431,8 +445,9 @@ class UploadActivity : AppCompatActivity() {
         )
     }
 
-    companion object {
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
-    }
 }
+
+
+
+
+

@@ -9,10 +9,13 @@
     <color name="white">#FFFFFFFF</color>
 
 <!--    My Color-->
-    <color name="color_1">#47734D</color>
-    <color name="color_2">#E7E8E3</color>
+    <color name="color_1">#51AD99</color>
+    <color name="color_2">#F5F5F5</color>
     <color name="color_3">#FFFFFF</color>
     <color name="pink">#F06292</color>
+    <color name="grey">#8E8E8E</color>
     <color name="navi">#2D3D4F</color>
+    <color name="secondary_grey">#C7C7C7</color>
+    <color name="gray_shimmer">#DDDDDD</color>
 
 </resources>

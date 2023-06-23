@@ -59,31 +59,52 @@ class DetailPostActivity : AppCompatActivity() {
         })
     }
 
+    private fun startShimmer() {
+        binding.loadingDetail.startShimmer()
+        binding.loadingDetail.visibility = View.VISIBLE
+    }
+
+    private fun stopShimmer() {
+        binding.loadingDetail.stopShimmer()
+        binding.loadingDetail.visibility = View.GONE
+    }
+
     private fun getDetailEvent() {
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 1)
         detailEventViewModel.getEventById(id).observe(this) {
             when (it) {
                 is Result.Loading -> {
+                    startShimmer()
                 }
                 is Result.Error -> {
+                    startShimmer()
+                    Toast.makeText(this, "${it.error} Gagal", Toast.LENGTH_SHORT).show()
                     Log.d("Eyyoy", "${it.error}")
-
                 }
                 is Result.Success -> {
                     Toast.makeText(this, "${it.data.data.id}", Toast.LENGTH_SHORT).show()
                     binding.apply {
-                        Log.d("KAMU", "${it.data.data.id}")
-                        tvNameEventDetail.text = it.data.data.name
-                        tvDateEvent.text = it.data.data.date
-                        tvDescEvent.text = it.data.data.deskripsi
-                        tvDetailLoc.text = it.data.data.location
-                        tvDetailContactHp.text = it.data.data.contact_person
-                        tvDetailEmail.text = it.data.data.email
-                        tvDetailAuthor.text = it.data.data.author
-                        Glide.with(this@DetailPostActivity)
-                            .load(it.data.data.image_poster)
-                            .into(ivEvent)
-
+                        stopShimmer()
+                        binding?.apply {
+                            Log.d("KAMU", "${it.data.data.id}")
+                            tvNameEventDetail.visibility = View.VISIBLE
+                            detailEvent.visibility = View.VISIBLE
+                            dateEvent.visibility = View.VISIBLE
+                            lokasiEvent.visibility = View.VISIBLE
+                            tvContactHp.visibility = View.VISIBLE
+                            tvAuthor.visibility = View.VISIBLE
+                            tvEmail.visibility = View.VISIBLE
+                            tvNameEventDetail.text = it.data.data.name
+                            tvDateEvent.text = it.data.data.date
+                            tvDescEvent.text = it.data.data.deskripsi
+                            tvDetailLoc.text = it.data.data.location
+                            tvDetailContactHp.text = it.data.data.contact_person
+                            tvDetailEmail.text = it.data.data.email
+                            tvDetailAuthor.text = it.data.data.author
+                            Glide.with(this@DetailPostActivity)
+                                .load(it.data.data.image_poster)
+                                .into(ivEvent)
+                        }
                     }
                 }
             }
@@ -111,7 +132,8 @@ class DetailPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun btnUpdate() {
+
+    private fun btnUpdate(){
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 0)
         binding.btnUpdateEvent.setOnClickListener {
             startActivity(Intent(this, DetailEditPostActivity::class.java).also {
@@ -120,20 +142,20 @@ class DetailPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun deleteEvent() {
+    private fun deleteEvent(){
         val id = intent.getIntExtra(EXTRA_ID_POST_DETAIL, 0)
         detailEventViewModel.deleteMyPost(id).observe(this) {
             if (it != null) {
                 when (it) {
                     is Result.Loading -> {
-                        showLoading(true)
+                        showLoading()
                     }
                     is Result.Error -> {
-                        showLoading(false)
+                        showLoading()
                         Log.d("HapusD", "${it.error}")
                     }
                     is Result.Success -> {
-                        showLoading(false)
+                        stopLoading()
                         setToastSuccessDeletePost()
                         Log.d("hapusC", "${it.data.msg}")
                     }
@@ -142,9 +164,11 @@ class DetailPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarDetailPost.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
+
+//    private fun showLoading(isLoading: Boolean) {
+//        binding.progressBarDetailPost.visibility = if (isLoading) View.VISIBLE else View.GONE
+//    }
+
 
     private fun setToastSuccessDeletePost() {
         val titleToast = "Sukses !!!"
@@ -160,7 +184,17 @@ class DetailPostActivity : AppCompatActivity() {
         )
     }
 
-    companion object {
+    private fun showLoading(){
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.playAnimation()
+    }
+
+    private fun stopLoading(){
+        binding.loading.visibility = View.GONE
+        binding.loading.cancelAnimation()
+    }
+
+    companion object{
         const val EXTRA_ID_POST_DETAIL = "extra_id_post"
     }
 }

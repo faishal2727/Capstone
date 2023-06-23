@@ -200,13 +200,27 @@
                 android:id="@+id/tvMasukDisini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_extra_bold"
+                android:fontFamily="@font/poppins"
                 android:text="Masuk di Sini"
+                android:textStyle="bold"
                 android:textColor="@color/color_1"
                 app:layout_constraintEnd_toEndOf="@+id/tvSudahPunya"
                 app:layout_constraintStart_toStartOf="@+id/tvSudahPunya"
                 app:layout_constraintTop_toBottomOf="@+id/tvSudahPunya" />
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/motion_loading" />
             <ProgressBar
                 android:id="@+id/progressBarSigUp"
                 android:layout_width="wrap_content"

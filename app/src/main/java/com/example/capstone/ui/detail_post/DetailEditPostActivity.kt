@@ -233,7 +233,6 @@ class DetailEditPostActivity : AppCompatActivity() {
                     Glide.with(this@DetailEditPostActivity)
                         .load(it.data.data.image_surat)
                         .into(binding.ivSK)
-
                 }
             }
         }

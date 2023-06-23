@@ -187,13 +187,29 @@
                 android:id="@+id/tvDaftarDisini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_extra_bold"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
                 android:text="Daftar di Sini"
                 android:textColor="@color/color_1"
                 app:layout_constraintEnd_toEndOf="@+id/tvBelumPunya"
                 app:layout_constraintStart_toStartOf="@+id/tvBelumPunya"
                 app:layout_constraintTop_toBottomOf="@id/tvBelumPunya" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDaftarDisini"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/motion_loading" />
             <ProgressBar
                 android:id="@+id/progressBarLogin"
                 android:layout_width="wrap_content"

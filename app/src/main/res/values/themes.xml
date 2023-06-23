@@ -21,6 +21,14 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.MyApp.FloatingButton" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+
+
+
+
     <!-- Teks Title Login-->
     <style name="AppTheme.TextTitleLogin" parent="TextAppearance.AppCompat">
         <item name="color">@color/white</item>
