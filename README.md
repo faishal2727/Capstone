@@ -12,5 +12,5 @@ Greevent adalah sebuah aplikasi berbasis android yang bertujuan untuk mencari, m
 ## 📷 Screen Shots
 Login Screen | Home Screen | Detail Screen | Post Event
 :----------:|:-------------:|:--------:|:--------:
-<img src="[https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/1_d837sv.jpg](https://github.com/faishal2727/Capstone/blob/main/img_mockup/login.png)" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/3_unsz0x.jpg" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/2_llbibl.jpg" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/4_kecc9l.jpg" width=300/> |
+<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/login.png" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/3_unsz0x.jpg" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/2_llbibl.jpg" width=300/> | <img src="https://res.cloudinary.com/dgbbqp56b/image/upload/v1685725725/4_kecc9l.jpg" width=300/> |
 
