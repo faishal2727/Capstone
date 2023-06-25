@@ -36,7 +36,7 @@ Post Screen | Join-Event Screen | Maps Screen | Detail-Join Screen
 
 ## :iphone: Mockup
 <p align='center'>
-<img src="https://github.com/faishal2727/E-ngkringan/blob/main/engkringan/engkringan.jpg"/> 
+<img src="https://github.com/faishal2727/Capstone/blob/main/img_mockup/greevents.jpg"/> 
 </p>
 
 
